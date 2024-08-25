@@ -26,7 +26,7 @@ public class GameMain extends JPanel implements MouseListener{
 	// the game board 
 	private Board board;
 	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
+	//TODO: create the enumeration for the variable below (GameState currentState) -done?
 	//HINT all of the states you require are shown in the code within GameMain
 	private GameState currentState; 
 	
@@ -40,7 +40,7 @@ public class GameMain extends JPanel implements MouseListener{
 	public GameMain() {   
 		
 		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
-	    
+	  
 	    
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
@@ -55,12 +55,12 @@ public class GameMain extends JPanel implements MouseListener{
 		// account for statusBar height in overall height
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
 		
-		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
 
+		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name-done?
+		board = new Board();
 		
-		//TODO: call the method to initialise the game board
-
+		//TODO: call the method to initialise the game board -done
+		
 	}
 	
 	public static void main(String[] args) {
@@ -145,6 +145,7 @@ public class GameMain extends JPanel implements MouseListener{
 				
 			} else 
 				if (board.isDraw ()) {
+					currentState = GameState.Draw;
 					
 				// TODO: set the currentstate to the draw gamestate
 

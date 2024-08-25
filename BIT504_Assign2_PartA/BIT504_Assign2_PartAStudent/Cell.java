@@ -3,23 +3,27 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class Cell {
+	public class Cell {
     //content of this cell (empty, cross, nought)
-	Player content;
+		Player content;
 	//row and column of this cell
-	int row, col;
+		int row, col;
 	
 	/** Constructor to initialise this cell with the specified row and col */
 	public Cell(int row, int col) {
 		
-		// TODO: Initialise the variables row, col 
+		this.row = row;
+		this.col = col;
+		// TODO: Initialise the variables row, col -done I  think
 
-		
-		
-		//TODO: call the method that sets the cell content to EMPTY
+		this.clear();
+		//TODO: call the method that sets the cell content to EMPTY - done?
 		 
 	}
-	
+	/**Getter for the Player content, which is the state of a cell */
+	public Player getContent() {
+		return content;
+	}
 
 	/** Paint itself on the graphics canvas, given the Graphics context g */ 
 	public void paint(Graphics g) {
@@ -45,9 +49,13 @@ public class Cell {
 	/** Set this cell's content to EMPTY */
 	public void clear() {
 		
-		// TODO: Set the value of content to Empty (Remember this is an enum)
+		this.content = Player.Empty;
+		 
+		// TODO: Set the value of content to Empty (Remember this is an enum) - done?
 
 		
 	}
+
+	}
 		
-}
+
