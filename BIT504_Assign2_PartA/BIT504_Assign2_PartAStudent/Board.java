@@ -51,7 +51,7 @@ public class Board {
 		
 		 // TODO: Check if the player has 3 in the playerCol.-done?
 		 // Hint: Use the row code above as a starting point, remember that it goes cells[row][column] 
-		if(cells[0][playerCol].content == thePlayer && cells[0][playerCol].content == thePlayer && cells[2][playerCol].content == thePlayer )
+		if(cells[0][playerCol].content == thePlayer && cells[1][playerCol].content == thePlayer && cells[2][playerCol].content == thePlayer )
 			return true; 
 		
 		

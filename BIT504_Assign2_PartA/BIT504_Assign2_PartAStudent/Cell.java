@@ -14,9 +14,10 @@ import java.awt.Graphics2D;
 		
 		this.row = row;
 		this.col = col;
+	}
 		// TODO: Initialise the variables row, col -done I  think
 
-		this.clear();
+		/*this.clear();
 		//TODO: call the method that sets the cell content to EMPTY - done?
 		 
 	}
@@ -24,7 +25,16 @@ import java.awt.Graphics2D;
 	public Player getContent() {
 		return content;
 	}
-
+	
+	/**Setter for the cell, used to action events for that cell */
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setCol(int col) {
+		this.col = col;
+	}
+	
 	/** Paint itself on the graphics canvas, given the Graphics context g */ 
 	public void paint(Graphics g) {
 		//Graphics2D allows setting of pen's stroke size
