@@ -3,24 +3,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-	public class Cell {
-    //content of this cell (empty, cross, nought)
-		Player content;
+public class Cell {
+    //content of this cell (empty, cross, nought), used enumerator to accomplish
+	Player content;
 	//row and column of this cell
-		int row, col;
+	int row, col;
 	
 	/** Constructor to initialise this cell with the specified row and col */
 	public Cell(int row, int col) {
-		
+		//initialisation
 		this.row = row;
 		this.col = col;
-	}
-		// TODO: Initialise the variables row, col -done I  think
-
-		/*this.clear();
-		//TODO: call the method that sets the cell content to EMPTY - done?
-		 
-	}
+		//calls method to clear content when creating cells
+		this.clear();		 
+		}
 	/**Getter for the Player content, which is the state of a cell */
 	public Player getContent() {
 		return content;
@@ -59,12 +55,8 @@ import java.awt.Graphics2D;
 	/** Set this cell's content to EMPTY */
 	public void clear() {
 		
-		this.content = Player.Empty;
-		 
-		// TODO: Set the value of content to Empty (Remember this is an enum) - done?
-
-		
-	}
+		this.content = Player.Empty;	
+		}
 
 	}
 		
