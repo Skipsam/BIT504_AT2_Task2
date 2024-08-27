@@ -5,6 +5,7 @@ import javax.swing.*;
 
 
 public class GameMain extends JPanel implements MouseListener{
+	
 	//Constants for game 
 	// number of ROWS by COLS cell constants 
 	public static final int ROWS = 3;     
@@ -25,11 +26,8 @@ public class GameMain extends JPanel implements MouseListener{
 	/*declare game object variables*/
 	// the game board 
 	private Board board;
-	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
-	//HINT all of the states you require are shown in the code within GameMain
+	// the game state including playing, win states and draws 	 
 	private GameState currentState; 
-	
 	// the current player
 	private Player currentPlayer; 
 	// for displaying game status message
@@ -39,11 +37,11 @@ public class GameMain extends JPanel implements MouseListener{
 	/** Constructor to setup the UI and game components on the panel */
 	public GameMain() {   
 		
-		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
-	    
+		//creates a mouse listener to accept input from a mouse         
+		addMouseListener(this);
 	    
 		// Setup the status bar (JLabel) to display status message       
-		statusBar = new JLabel("         ");       
+		statusBar = new JLabel("Click to Play");       
 		statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 14));       
 		statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));       
 		statusBar.setOpaque(true);       
@@ -55,13 +53,10 @@ public class GameMain extends JPanel implements MouseListener{
 		// account for statusBar height in overall height
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
 		
-		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
 
-		
-		//TODO: call the method to initialise the game board
-
-	}
+		//creates a new board using the constructor in the board class
+		board = new Board();		
+		}
 	
 	public static void main(String[] args) {
 		    // Run GUI code in Event Dispatch thread for thread safety.
@@ -69,14 +64,12 @@ public class GameMain extends JPanel implements MouseListener{
 	         public void run() {
 				//create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
-				
-				//TODO: create the new GameMain panel and add it to the frame
-						
-				
-				
-				//TODO: set the default close operation of the frame to exit_on_close
-		            
-				
+				//uses the GameMain constructor to generate a new instance of the game panel
+				GameMain gamePanel = new GameMain();
+	            frame.add(gamePanel);  
+				//J-frame command to exit the program when the window is closed
+	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
+				//formatting of the elements in the frame
 				frame.pack();             
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
@@ -95,16 +88,12 @@ public class GameMain extends JPanel implements MouseListener{
 		if (currentState == GameState.Playing) {          
 			statusBar.setForeground(Color.BLACK);          
 			if (currentPlayer == Player.Cross) {   
-			
-				//TODO: use the status bar to display the message "X"'s Turn
-
+				//updates status bar message
+				statusBar.setText("X's Turn");
+				} else {    
+					statusBar.setText("O's Turn");
 				
-			} else {    
-				
-				//TODO: use the status bar to display the message "O"'s Turn
-
-				
-			}       
+				}       
 			} else if (currentState == GameState.Draw) {          
 				statusBar.setForeground(Color.RED);          
 				statusBar.setText("It's a Draw! Click to play again.");       
@@ -126,6 +115,7 @@ public class GameMain extends JPanel implements MouseListener{
 					board.cells[row][col].content = Player.Empty;           
 				}
 			}
+			//Sets the gamestate to playing to begin, and sets cross's turn first
 			 currentState = GameState.Playing;
 			 currentPlayer = Player.Cross;
 		}
@@ -137,22 +127,31 @@ public class GameMain extends JPanel implements MouseListener{
 		 *   
 		 */
 		public void updateGame(Player thePlayer, int row, int col) {
-			//check for win after play
-			if(board.hasWon(thePlayer, row, col)) {
-				
-				// TODO: check which player has won and update the currentstate to the appropriate gamestate for the winner
-
-				
-			} else 
-				if (board.isDraw ()) {
-					
-				// TODO: set the currentstate to the draw gamestate
-
-			}
-			//otherwise no change to current state of playing
-		}
 		
-				
+			
+			//check for win after play, if yeas then picks a victory message
+			if(board.hasWon(thePlayer, row, col)) {
+				 
+				//check the current player enum, use as check to determine which victory message to display
+				if(thePlayer == Player.Cross ) {
+					currentState = GameState.Cross_won;
+					}else
+						if(thePlayer == Player.Nought ) {
+							currentState = GameState.Nought_won;	
+							} 
+
+				}else { 
+					//check for a draw state, if yes display appropriate message
+					if (board.isDraw ()) {
+					currentState = GameState.Draw;}
+					}
+											
+				}
+						
+			//otherwise no change to current state of playing
+			
+		
+		
 	
 		/** Event handler for the mouse click on the JPanel. If selected cell is valid and Empty then current player is added to cell content.
 		 *  UpdateGame is called which will call the methods to check for winner or Draw. if none then GameState remains playing.
@@ -174,19 +173,23 @@ public class GameMain extends JPanel implements MouseListener{
 				// Switch player
 				if (currentPlayer == Player.Cross) {
 					currentPlayer =  Player.Nought;
-				}
+					}
 				else {
 					currentPlayer = Player.Cross;
-				}
-			}             
-		} else {        
-			// game over and restart              
-			initGame();            
-		}   
-		
-		//TODO: redraw the graphics on the UI          
+					}
+				
+				} 
+			
+			repaint();
+			
+			} else {        
+				// game over and restart              
+				updateGame(currentPlayer, rowSelected, colSelected);
+				//starts a new game
+				initGame();            
+			}         
            
-	}
+		}
 		
 	
 	@Override

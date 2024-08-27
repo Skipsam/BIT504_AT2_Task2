@@ -4,23 +4,33 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class Cell {
-    //content of this cell (empty, cross, nought)
+    //content of this cell (empty, cross, nought), used enumerator to accomplish
 	Player content;
 	//row and column of this cell
 	int row, col;
 	
 	/** Constructor to initialise this cell with the specified row and col */
 	public Cell(int row, int col) {
-		
-		// TODO: Initialise the variables row, col 
-
-		
-		
-		//TODO: call the method that sets the cell content to EMPTY
-		 
+		//initialisation
+		this.row = row;
+		this.col = col;
+		//calls method to clear content when creating cells
+		this.clear();		 
+		}
+	/**Getter for the Player content, which is the state of a cell */
+	public Player getContent() {
+		return content;
 	}
 	
-
+	/**Setter for the cell, used to action events for that cell */
+	public void setRow(int row) {
+		this.row = row;
+	}
+	
+	public void setCol(int col) {
+		this.col = col;
+	}
+	
 	/** Paint itself on the graphics canvas, given the Graphics context g */ 
 	public void paint(Graphics g) {
 		//Graphics2D allows setting of pen's stroke size
@@ -45,9 +55,9 @@ public class Cell {
 	/** Set this cell's content to EMPTY */
 	public void clear() {
 		
-		// TODO: Set the value of content to Empty (Remember this is an enum)
+		this.content = Player.Empty;	
+		}
 
-		
 	}
 		
-}
+
